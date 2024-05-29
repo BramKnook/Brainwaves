@@ -1,0 +1,34 @@
+{
+    "name": "ClawControls",
+    "maps": [
+        {
+            "name": "Claw",
+            "id": "0190f307-4679-4818-b5dc-e6ad8e8faf19",
+            "actions": [
+                {
+                    "name": "MoveClaw",
+                    "type": "Button",
+                    "id": "e2d7b2a9-660c-4868-a50c-b0822adceed5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b3fa7b78-6509-49a9-8cd0-c8094ac7d575",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveClaw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

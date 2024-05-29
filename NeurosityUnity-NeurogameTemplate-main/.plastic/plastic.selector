@@ -1,0 +1,4 @@
+repository "NeurosityUnity-NeurogameTemplate-main@bramknook2013@cloud"
+  path "/"
+    br "/main"
+    co "/main"
