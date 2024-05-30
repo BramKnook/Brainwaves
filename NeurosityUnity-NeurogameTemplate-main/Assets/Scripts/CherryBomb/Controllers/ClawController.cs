@@ -9,12 +9,13 @@ public class ClawController : MonoBehaviour
     public float moveDistance = 0.8f;
     public float kinesisValueThreshold = 0.8f;
     public float kinesisValue;
-    public float unchangedThresholdTime = 2f; // Time in seconds to consider value as unchanged
+    public float unchangedThresholdTime = 2f; 
 
     private Vector3 originalPosition;
     private Vector3 targetPosition;
     private bool isMovingDown = false;
     private bool isMovingUp = false;
+
     [SerializeField]
     public ConveyorBeltController conveyorBeltController;
     private NotionInterfacer deviceInterface;
@@ -108,14 +109,11 @@ public class ClawController : MonoBehaviour
     {
         if (collision.CompareTag("Cherry"))
         {
-            // Subtract 1 point for removing a cherry
             if (ScoreManager.instance != null)
             {
                 ScoreManager.instance.AddScore(-1);
             }
         }
-
-        // Destroy the object whether it's a cherry or a bomb
         Destroy(collision.gameObject);
         conveyorBeltController.onBelt.Remove(collision.gameObject);
     }
