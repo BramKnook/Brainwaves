@@ -25,11 +25,8 @@ public class ClawController : MonoBehaviour
 
     void OnEnable()
     {
-
         deviceInterface = FindObjectOfType<NotionInterfacer>();
     }
-
-
 
     void Start()
     {
@@ -40,10 +37,16 @@ public class ClawController : MonoBehaviour
 
     void Update()
     {
-       if (deviceInterface == null || !deviceInterface.IsOnline())
-       {
+        CheckKinesisValue();
+        MoveClaw();
+    }
+
+    void CheckKinesisValue()
+    {
+        if (deviceInterface == null || !deviceInterface.IsOnline())
+        {
             return;
-       }
+        }
 
         kinesisValue = deviceInterface.kinesisScore;
         Debug.Log(kinesisValue);
@@ -58,8 +61,10 @@ public class ClawController : MonoBehaviour
             unchangedTime = 0f;
             lastKinesisValue = kinesisValue;
         }
+    }
 
-        // Move the claw up if the kinesis value is unchanged for a specific time
+    void MoveClaw()
+    {
         if (unchangedTime >= unchangedThresholdTime && !isMovingUp)
         {
             isMovingDown = false;
@@ -70,6 +75,7 @@ public class ClawController : MonoBehaviour
         {
             isMovingDown = true;
         }
+
         else if (kinesisValue < kinesisValueThreshold && !isMovingUp && !isMovingDown)
         {
             isMovingUp = true;
@@ -79,6 +85,7 @@ public class ClawController : MonoBehaviour
         {
             MoveClawDown();
         }
+
         else if (isMovingUp)
         {
             MoveClawUp();

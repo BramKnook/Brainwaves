@@ -1,8 +1,9 @@
-/*using NUnit.Framework;
+using NUnit.Framework;
 using UnityEngine;
 using TMPro;
 using UnityEngine.TestTools;
 
+[TestFixture]
 public class ScoreManagerTests
 {
     private GameObject scoreManagerObject;
@@ -40,8 +41,8 @@ public class ScoreManagerTests
     public void ScoreStartsAtZero()
     {
         // Assert that the initial score is zero
-        Assert.AreEqual(0, scoreManager.score);
-        Assert.AreEqual("Points: 0", scoreText.text);
+        Assert.Equals(0, scoreManager.score);
+        Assert.Equals("Points: 0", scoreText.text);
     }
 
     [Test]
@@ -51,8 +52,8 @@ public class ScoreManagerTests
         scoreManager.AddScore(10);
 
         // Assert that the score has increased
-        Assert.AreEqual(10, scoreManager.score);
-        Assert.AreEqual("Points: 10", scoreText.text);
+        Assert.Equals(10, scoreManager.score);
+        Assert.Equals("Points: 10", scoreText.text);
     }
 
     [Test]
@@ -64,7 +65,7 @@ public class ScoreManagerTests
         scoreManager.AddScore(15);
 
         // Assert that the score has increased correctly
-        Assert.AreEqual(20, scoreManager.score);
-        Assert.AreEqual("Points: 20", scoreText.text);
+        Assert.Equals(20, scoreManager.score);
+        Assert.Equals("Points: 20", scoreText.text);
     }
-}*/
+}

@@ -9,7 +9,13 @@ public class ScoreManager : MonoBehaviour
     public int score = 0;
     public TMP_Text scoreText;
 
-    private void Awake()
+    // Define a delegate type
+    public delegate void ScoreReached(int currentScore);
+
+    // Declare an event using the delegate
+    public static event ScoreReached OnScoreReached;
+
+    public void Awake()
     {
         if (instance == null)
         {
@@ -21,7 +27,7 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void Start()
     {
         if (scoreText != null)
         {
@@ -32,6 +38,16 @@ public class ScoreManager : MonoBehaviour
     public void AddScore(int value)
     {
         score += value;
+        if (scoreText != null)
+        {
+            scoreText.text = "Points: " + score.ToString();
+        }
+        OnScoreReached?.Invoke(score);
+    }
+
+    public void ResetScore()
+    {
+        score = 0;
         if (scoreText != null)
         {
             scoreText.text = "Points: " + score.ToString();
