@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class KlauwController : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    public float moveDistance = 2f;
+    public float moveSpeed = 3f;
+    public float moveDistance = 0.8f;
 
     private Vector3 originalPosition;
     private Vector3 targetPosition;

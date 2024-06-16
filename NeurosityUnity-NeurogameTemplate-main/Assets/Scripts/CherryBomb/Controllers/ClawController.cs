@@ -1,6 +1,7 @@
 using Notion.Unity;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ClawController : MonoBehaviour
@@ -9,6 +10,8 @@ public class ClawController : MonoBehaviour
     public float moveDistance = 0.8f;
     public float kinesisValueThreshold = 0.8f;
     public float kinesisValue;
+    [SerializeField]
+    public TMP_Text kinesisText;
     public float unchangedThresholdTime = 2f; 
 
     private Vector3 originalPosition;
@@ -19,13 +22,20 @@ public class ClawController : MonoBehaviour
     [SerializeField]
     public ConveyorBeltController conveyorBeltController;
     private NotionInterfacer deviceInterface;
+    private MockDevice mockDevice;
 
     private float lastKinesisValue;
     private float unchangedTime = 0f;
 
+// Enable the Neurosity Crown OR mock version
     void OnEnable()
     {
-        deviceInterface = FindObjectOfType<NotionInterfacer>();
+//      mockDevice = FindObjectOfType<MockDevice>();
+
+        if (mockDevice == null)
+        {
+            deviceInterface = FindObjectOfType<NotionInterfacer>();
+        }
     }
 
     void Start()
@@ -38,18 +48,31 @@ public class ClawController : MonoBehaviour
     void Update()
     {
         CheckKinesisValue();
+        UpdateKinesisText();
         MoveClaw();
     }
 
     void CheckKinesisValue()
     {
-        if (deviceInterface == null || !deviceInterface.IsOnline())
-        {
-            return;
-        }
+          if (deviceInterface == null || !deviceInterface.IsOnline())
+          {
+              return;
+          }
+          kinesisValue = deviceInterface.kinesisScore;
 
-        kinesisValue = deviceInterface.kinesisScore;
-        Debug.Log(kinesisValue);
+        // test code for prototype/mock device
+        /*   if (mockDevice != null)
+           {
+               kinesisValue = mockDevice.GetValue();
+           }
+           else if (deviceInterface != null && deviceInterface.IsOnline())
+           {
+               kinesisValue = deviceInterface.kinesisScore;
+           }
+           else
+           {
+               return;
+           }*/
 
         // Check if the kinesis value has changed
         if (kinesisValue == lastKinesisValue)
@@ -123,5 +146,13 @@ public class ClawController : MonoBehaviour
         }
         Destroy(collision.gameObject);
         conveyorBeltController.onBelt.Remove(collision.gameObject);
+    }
+
+    void UpdateKinesisText()
+    {
+        if (kinesisText != null)
+        {
+            kinesisText.text = "Claw: " + kinesisValue;
+        }
     }
 }

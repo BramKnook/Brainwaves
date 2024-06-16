@@ -30,8 +30,6 @@ namespace Notion.Unity
         public TMP_InputField inputEmail;
         public TMP_InputField inputPassword;
         public Button buttonLogin;
-        public Button buttonLogin1;
-        public Button buttonLogin2;
         public Toggle toggleRememberUser;
         public GameObject panelInfo;
         public TMP_Text infoText;
@@ -94,8 +92,6 @@ namespace Notion.Unity
 
             // Let's initialize all the buttons.
             buttonLogin.onClick.AddListener(delegate { LoginButton(deviceInterface.IsLoggedIn); });
-            buttonLogin1.onClick.AddListener(delegate { LoginButton(deviceInterface.IsLoggedIn); });
-            buttonLogin2.onClick.AddListener(delegate { LoginButton(deviceInterface.IsLoggedIn); });
             buttonSelect.onClick.AddListener(delegate { SelectDevice(dropdownDevices.captionText.text); }); 
             toggleRememberUser.onValueChanged.AddListener(delegate { RememberUser(toggleRememberUser.isOn); });
         }

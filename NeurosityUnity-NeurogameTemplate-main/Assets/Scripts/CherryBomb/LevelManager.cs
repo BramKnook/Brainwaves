@@ -1,11 +1,15 @@
+using TMPro;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
     public int currentLevel = 1;
-    public int pointsToNextLevel = 10;
     [SerializeField]
-    public float speedIncreasePerLevel = 1f; // Amount to increase speed per level
+    public int pointsToNextLevel = 3;
+    [SerializeField]
+    public float speedIncreasePerLevel = 3f; // Amount to increase speed per level
+    [SerializeField]
+    public TMP_Text levelText;
 
     private ConveyorBeltController conveyorBeltController;
 
@@ -13,6 +17,7 @@ public class LevelManager : MonoBehaviour
     {
         ScoreManager.OnScoreReached += CheckLevelUp;
         conveyorBeltController = FindObjectOfType<ConveyorBeltController>();
+        UpdateLevelText();
     }
 
     void OnDestroy()
@@ -39,7 +44,15 @@ public class LevelManager : MonoBehaviour
             conveyorBeltController.speed += speedIncreasePerLevel;
             Debug.Log("New Conveyor Belt Speed: " + conveyorBeltController.speed);
         }
-
+        UpdateLevelText();
         ScoreManager.instance.ResetScore();
+    }
+
+    void UpdateLevelText()
+    {
+        if (levelText != null)
+        {
+            levelText.text = "Level: " + currentLevel;
+        }
     }
 }

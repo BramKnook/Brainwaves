@@ -638,7 +638,7 @@ namespace Notion.Unity
         // Turns out we can login without a device ID, in which case Firabease will just log into our default or last device.
         // Be wary of the await commands, they tend to throw errors if something isn't perfect.
         // This template catches any exceptions in the TitleScreenGUI class when logging in from the GUI.
-        public async Task Login(string _inputEmail, string _inputPassword)
+        public async Task Login(string _inputEmail, string _inputPassword, int maxRetries = 3, int delayMilliseconds = 1000)
         {
             device.Email = _inputEmail;
             device.Password = _inputPassword;
@@ -647,12 +647,33 @@ namespace Notion.Unity
             await controller.Initialize();
 
             notion = new Notion(controller);
-            await notion.Login(device);
 
-            IsLoggedIn = true;
+            int attempt = 0;
+            while (attempt < maxRetries)
+            {
+                try
+                {
+                    await notion.Login(device);
+                    IsLoggedIn = true;
+                    break; // Exit the loop if login is successful
+                }
+                catch (Exception ex)
+                {
+                    attempt++;
+                    // Optionally log the exception
+                    Debug.LogWarning($"Login attempt {attempt} failed: {ex.Message}");
 
-            //Debug.Log( "Logged In" );
+                    if (attempt < maxRetries)
+                    {
+                        await Task.Delay(delayMilliseconds); // Wait before retrying
+                    }
+                }
+            }
 
+            if (!IsLoggedIn)
+            {
+                Debug.LogError("Failed to log in after maximum retries.");
+            }
         }
 
 
@@ -751,7 +772,7 @@ namespace Notion.Unity
            // if ( subscribeToCalm ) { SubscribeCalm(); }
            // if ( subscribeToFocus ) { SubscribeFocus(); }
            // if ( subscribeToAccelerometer ) { SubscribeAccelerometer(); }
-            if ( subscribeToKinesis ) { SubscribeKinesis("leftFoot"); }
+            if ( subscribeToKinesis ) { SubscribeKinesis("rightFoot"); }
 
             IsSubscribed = true;
         }

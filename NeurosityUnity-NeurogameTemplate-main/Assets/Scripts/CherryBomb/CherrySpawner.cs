@@ -20,6 +20,7 @@ public class CherrySpawner : MonoBehaviour
         }
     }
 
+    // Determines which object spawns
     public void SpawnFruit()
     {
         float randomValue = Random.Range(0f, 1f);

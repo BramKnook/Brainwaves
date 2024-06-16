@@ -7,6 +7,7 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
     public int score = 0;
+    [SerializeField]
     public TMP_Text scoreText;
 
     // Define a delegate type
@@ -29,25 +30,24 @@ public class ScoreManager : MonoBehaviour
 
     public void Start()
     {
-        if (scoreText != null)
-        {
-            scoreText.text = "Points: " + score.ToString();
-        }
+        UpdateScoreText();
     }
 
     public void AddScore(int value)
     {
         score += value;
-        if (scoreText != null)
-        {
-            scoreText.text = "Points: " + score.ToString();
-        }
+        UpdateScoreText();
         OnScoreReached?.Invoke(score);
     }
 
     public void ResetScore()
     {
         score = 0;
+        UpdateScoreText();
+    }
+
+    void UpdateScoreText()
+    {
         if (scoreText != null)
         {
             scoreText.text = "Points: " + score.ToString();
