@@ -83,14 +83,19 @@ public class KlauwController : MonoBehaviour
     {
         if (collision.CompareTag("Cherry"))
         {
-            // Subtract 1 point for removing a cherry
+            if (ScoreManager.instance != null)
+            {
+                ScoreManager.instance.AddScore(-1);
+            }
+        }
+        else if(collision.CompareTag("Strawberry"))
+        {
             if (ScoreManager.instance != null)
             {
                 ScoreManager.instance.AddScore(-1);
             }
         }
 
-        // Destroy the object whether it's a cherry or a bomb
         Destroy(collision.gameObject);
         conveyorBeltController.onBelt.Remove(collision.gameObject);
     }

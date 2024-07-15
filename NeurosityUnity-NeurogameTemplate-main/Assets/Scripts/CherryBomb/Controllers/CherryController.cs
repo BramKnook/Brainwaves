@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CherryController : MonoBehaviour
 {
+    public GameObject particleEffect;
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Basket"))
@@ -13,14 +14,7 @@ public class CherryController : MonoBehaviour
                 ScoreManager.instance.AddScore(1);
             }
 
-            Destroy(gameObject);
-        }
-        else if (collision.gameObject.CompareTag("StrawberryBox"))
-        {
-            if (ScoreManager.instance != null)
-            {
-                ScoreManager.instance.AddScore(-1);
-            }
+            Instantiate(particleEffect, transform.position, Quaternion.identity);
 
             Destroy(gameObject);
         }

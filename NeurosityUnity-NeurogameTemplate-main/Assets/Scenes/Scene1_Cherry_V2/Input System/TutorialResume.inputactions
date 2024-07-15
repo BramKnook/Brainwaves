@@ -1,0 +1,34 @@
+{
+    "name": "TutorialResume",
+    "maps": [
+        {
+            "name": "UI",
+            "id": "f36a800b-a3bc-4523-9ea4-06b73c7dfdb4",
+            "actions": [
+                {
+                    "name": "AnyKey",
+                    "type": "Button",
+                    "id": "f12f6055-26cb-4c41-b25e-02d45ed02bc4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b72e8408-6d4f-4815-a7ee-fefa2d45cc27",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AnyKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

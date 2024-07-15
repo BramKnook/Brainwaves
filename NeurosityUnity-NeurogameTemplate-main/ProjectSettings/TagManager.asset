@@ -9,6 +9,7 @@ TagManager:
   - Cherry
   - Bomb
   - StrawberryBox
+  - Strawberry
   layers:
   - Default
   - TransparentFX

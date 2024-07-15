@@ -772,7 +772,7 @@ namespace Notion.Unity
            // if ( subscribeToCalm ) { SubscribeCalm(); }
            // if ( subscribeToFocus ) { SubscribeFocus(); }
            // if ( subscribeToAccelerometer ) { SubscribeAccelerometer(); }
-            if ( subscribeToKinesis ) { SubscribeKinesis("rightFoot"); }
+            if ( subscribeToKinesis ) { SubscribeKinesis("rightIndexFinger"); }
 
             IsSubscribed = true;
         }

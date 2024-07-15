@@ -24,7 +24,6 @@ public class MockDevice : MonoBehaviour
 
     public float GetValue()
     {
-        //Debug.Log(value);
         return value;
     }
 }

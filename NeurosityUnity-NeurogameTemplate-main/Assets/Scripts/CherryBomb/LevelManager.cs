@@ -1,5 +1,6 @@
-using TMPro;
 using UnityEngine;
+using TMPro;
+using System.Collections;
 
 public class LevelManager : MonoBehaviour
 {
@@ -7,9 +8,13 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     public int pointsToNextLevel = 3;
     [SerializeField]
-    public float speedIncreasePerLevel = 3f; // Amount to increase speed per level
+    public float speedIncreasePerLevel = 3f;
     [SerializeField]
     public TMP_Text levelText;
+    [SerializeField]
+    public TMP_Text levelUpText;
+    [SerializeField]
+    public float pauseDuration = 2f;  
 
     private ConveyorBeltController conveyorBeltController;
 
@@ -18,6 +23,7 @@ public class LevelManager : MonoBehaviour
         ScoreManager.OnScoreReached += CheckLevelUp;
         conveyorBeltController = FindObjectOfType<ConveyorBeltController>();
         UpdateLevelText();
+        levelUpText.gameObject.SetActive(false);
     }
 
     void OnDestroy()
@@ -29,21 +35,28 @@ public class LevelManager : MonoBehaviour
     {
         if (currentScore >= pointsToNextLevel * currentLevel)
         {
-            LevelUp();
+            StartCoroutine(LevelUp());
         }
     }
 
-    void LevelUp()
+    IEnumerator LevelUp()
     {
         currentLevel++;
-        // Increase difficulty here
         Debug.Log("Level Up! Current Level: " + currentLevel);
 
+        levelUpText.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(pauseDuration);
+
+        levelUpText.gameObject.SetActive(false);
+
+        // Increase difficulty of the game here
         if (conveyorBeltController != null)
         {
             conveyorBeltController.speed += speedIncreasePerLevel;
             Debug.Log("New Conveyor Belt Speed: " + conveyorBeltController.speed);
         }
+
         UpdateLevelText();
         ScoreManager.instance.ResetScore();
     }

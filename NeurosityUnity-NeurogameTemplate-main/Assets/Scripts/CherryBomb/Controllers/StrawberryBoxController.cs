@@ -11,6 +11,7 @@ public class StrawberryBoxController : MonoBehaviour
     private Vector3 targetPosition;
     private bool isMoving = false;
     private StrawberryBoxControls controls;
+    public ConveyorBeltController conveyorBeltController;
 
     void Awake()
     {
@@ -66,5 +67,34 @@ public class StrawberryBoxController : MonoBehaviour
             yield return null;
         }
         transform.position = target;
+    }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.CompareTag("Strawberry"))
+        {
+            if (ScoreManager.instance != null)
+            {
+                ScoreManager.instance.AddScore(1);
+            }
+        }
+        else if (collision.CompareTag("Cherry"))
+        {
+            if (ScoreManager.instance != null)
+            {
+                ScoreManager.instance.AddScore(-1);
+            }
+        }
+        else if (collision.CompareTag("Bomb"))
+        {
+            if (ScoreManager.instance != null)
+            {
+                ScoreManager.instance.AddScore(-2);
+            }
+        }
+
+        // Destroy the object whether it's a cherry or a bomb
+        Destroy(collision.gameObject);
+        conveyorBeltController.onBelt.Remove(collision.gameObject);
     }
 }

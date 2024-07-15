@@ -15,14 +15,5 @@ public class BombController : MonoBehaviour
 
             Destroy(gameObject);
         }
-        else if (collision.gameObject.CompareTag("StrawberryBox"))
-        {
-            if (ScoreManager.instance != null)
-            {
-                ScoreManager.instance.AddScore(-2);
-            }
-
-            Destroy(gameObject);
-        }
     }
 }
