@@ -1,0 +1,2 @@
+PREREQUISITES TO PLAY GAME:
+-neurosity crown
